@@ -1,8 +1,19 @@
 
 const colors = {
-    null: ['var(--dark-teal)', 'var(--light-teal)'],
-    player1: ['var(--light-teal)', "var(--dark-teal)"],
-    player2: ['var(--orange)', 'var(--dark-orange)']
+    'null': ['var(--dark-teal)', 'var(--light-teal)'],
+    '1': ['var(--light-teal)', "var(--dark-teal)"],
+    '-1': ['var(--orange)', 'var(--dark-orange)'],
+    'T': ['var(--dark-teal)', 'var(--dark-orange)']
+}
+const players = {
+    'null': null,
+    '1': 'X',
+    '-1': 'O'
+}
+const win = {
+    'T': 'Cat wins',
+    '1': 'X wins',
+    '-1': 'O wins'
 }
 const winCon = [
     [0, 1, 2],
@@ -45,52 +56,24 @@ function render() {
 }
 
 function renderBoard() {
-    for (let i = 0; i < sqrsEl.length; i++) {
-        if (boardState[i] === null) {
-            sqrsEl[i].textContent = null;
-            sqrsEl[i].style.backgroundColor = colors.null[0];
-            sqrsEl[i].style.color = colors.null[1];
-        } else if (boardState[i] === 1) {
-            sqrsEl[i].textContent = 'X';
-            sqrsEl[i].style.backgroundColor = colors.player1[0];
-            sqrsEl[i].style.color = colors.player1[1];
-        } else if (boardState[i] === -1) {
-            sqrsEl[i].textContent = 'O';
-            sqrsEl[i].style.backgroundColor = colors.player2[0];
-            sqrsEl[i].style.color = colors.player2[1];
-        }
-    }
+    boardState.forEach(function(element, index) {
+        sqrsEl[index].textContent = players[element];
+        sqrsEl[index].style.backgroundColor = colors[element][0];
+        sqrsEl[index].style.color = colors[element][1];
+    }) 
 }
 
 function renderTurnSqr() {
-    if (turn === 1) {
-        turnSqr.textContent = 'X';
-        turnSqr.style.backgroundColor = colors.player1[0];
-        turnSqr.style.color = colors.player1[1];
-    } else if (turn === -1) {
-        turnSqr.textContent = "O";
-        turnSqr.style.backgroundColor = colors.player2[0];
-        turnSqr.style.color = colors.player2[1];
-    }
+    turnSqr.textContent = players[turn];
 }
 
 function renderWin() {
     if (winner !== null) {
         replayBtn.style.visibility = 'visible';
-        if (winner === 1) {
-            turnSqr.textContent = 'X Wins!';
-            turnSqr.style.backgroundColor = colors.player1[0];
-            turnSqr.style.color = colors.player1[1];
-        } else if (winner === -1) {
-            turnSqr.textContent = 'O Wins!';
-            turnSqr.style.backgroundColor = colors.player2[0];
-            turnSqr.style.color = colors.player2[1];
-        } else if (winner === 'T') {
-            turnSqr.textContent = 'Cat Wins';
-            turnSqr.style.backgroundColor = colors.null[0];
-            turnSqr.style.color = colors.null[1];
-        }
-    }   
+        turnSqr.textContent = win[winner];
+        turnSqr.style.backgroundColor = colors[winner][0];
+        turnSqr.style.color = colors[winner][1];    
+    }
 }
 
 function handleSqrClick(e) {
