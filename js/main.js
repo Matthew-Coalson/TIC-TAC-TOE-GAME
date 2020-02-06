@@ -11,9 +11,9 @@ const players = {
     '-1': 'O'
 }
 const win = {
-    'T': 'Cat wins',
-    '1': 'X wins',
-    '-1': 'O wins'
+    'T': 'Cat Wins',
+    '1': 'X Wins',
+    '-1': 'O Wins'
 }
 const winCon = [
     [0, 1, 2],
